@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login & Signup</title>
+        
+        <!-- Link to External CSS -->
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+        
+    </head>
+    <body>
+        <div class="note">
+            <p>This is just to create logs you can use any dummy email</p>
+        </div>
+        
+        <div class="wrapper">
+            <div class="title-text">
+                <div class="title login">Login Form</div>
+                <div class="title signup">Signup Form</div>
+            </div>
+        <div class="form-container">
+            <div class="slide-controls">
+                <input type="radio" name="slide" id="login" checked>
+                <input type="radio" name="slide" id="signup">
+                <label for="login" class="slide login">Login</label>
+                <label for="signup" class="slide signup">Signup</label>
+                <div class="slider-tab"></div>
+            </div>
+            <div class="form-inner">
+                <form method="POST" action={% url 'login' %} class="login">
+                    {% csrf_token %}
+                    <div class="field">
+                        {% if username.errors%}
+                            <p style="color: red;">{{ username.errors }}</p>
+                        {% endif %}
+                        <input type="text" name="username" placeholder="Username" required>
+                    </div>
+                    <div class="field">
+                        {% if email.errors%}
+                            <p style="color: red;">{{ email.errors }}</p>
+                        {% endif %}
+                        <input type="text" name="email" placeholder="Email Address" required>
+                    </div>
+                    <div class="field">
+                        {% if password.errors%}
+                            <p style="color: red;">{{ password.errors }}</p>
+                        {% endif %}
+                        <input type="password" name="password" placeholder="Password" required>
+                    </div>
+                    <div class="pass-link"><a href="#">Forgot password?</a></div>
+                    <div class="field btn">
+                        <div class="btn-layer"></div>
+                        <input type="submit" value="Login">
+                    </div>
+                    <div class="signup-link">Not a member? <a href="#">Signup now</a></div>
+                </form>
+
+                <form method="POST" action={% url 'signup' %} class="signup">
+                    {% csrf_token %}
+                    <div class="field">
+                        {% if username.errors%}
+                            <p style="color: red;">{{ username.errors }}</p>
+                        {% endif %}
+                        <input type="text" name="username" placeholder="Username" required>
+                    </div>
+                    <div class="field">
+                        {% if email.errors%}
+                            <p style="color: red;">{{ email.errors }}</p>
+                        {% endif %}
+                        <input type="text" name="email" placeholder="Email Address" required>
+                    </div>
+                    <div class="field">
+                        {% if password.errors%}
+                            <p style="color: red;">{{ password.errors }}</p>
+                        {% endif %}
+                        <input type="password" name="password" placeholder="Password" required>
+                    </div>
+                    <div class="field">
+                        {% if confirm_password.errors%}
+                            <p style="color: red;">{{ confirm_password.errors }}</p>
+                        {% endif %}
+                        <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+                    </div>
+                    <div class="field btn">
+                        <div class="btn-layer"></div>
+                        <input type="submit" value="Signup">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Link to JavaScript -->
+    <script src="{% static 'script.js' %}"></script>
+
+</body>
+</html>

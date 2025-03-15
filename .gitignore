@@ -1,0 +1,2 @@
+fluentd/file_logs/nginx_access_buffer/*
+fluentd/output_logs/nginx_access_buffer/*

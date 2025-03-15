@@ -1,0 +1,30 @@
+services:
+  nginx:
+    image: nginx
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/logs:/var/log/nginx  
+    restart: unless-stopped
+
+  fluentd:
+    build:
+      context: ./fluentd
+    image: fluentd-custom 
+    container_name: fluentd
+    user: root  
+    volumes:
+      - ./fluentd/fluentd.conf:/fluentd/etc/fluent.conf
+      - ./nginx/logs:/fluentd/log/files
+      - ./fluentd/file_logs:/fluentd/file_logs
+      - ./fluentd/file_logs/nginx_access_buffer:/fluentd/file_logs/nginx_access_buffer
+      - ./fluentd/output_logs:$HOME/file_logs
+    ports:
+      - "24224:24224"
+    restart: unless-stopped
+    depends_on:
+      - nginx
+    environment:
+      - TZ=Asia/Kolkata
